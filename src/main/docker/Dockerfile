@@ -6,9 +6,10 @@
 #ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /expand.jar"]
 FROM openjdk:8-jdk-alpine
 MAINTAINER 1562676731@qq.com
+VOLUME /tmp/log
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && mkdir -p /expand
 WORKDIR /expand
-EXPOSE 8082
+EXPOSE 4000
 ADD ./target/expand-0.0.1-SNAPSHOT.jar expand.jar
-CMD java -Djava.security.egd=file:/dev/./urandom -jar expand.jar
+ENTRYPOINT ["java","-Xms1024m","-Xmx1024m","-Dspring.profiles.active=test","-Djava.security.egd=file:/dev/./urandom","-jar","/expand.jar"]

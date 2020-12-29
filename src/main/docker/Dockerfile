@@ -6,7 +6,6 @@
 #ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /expand.jar"]
 FROM openjdk:8-jdk-alpine
 MAINTAINER 1562676731@qq.com
-VOLUME /tmp/log
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && mkdir -p /expand
 WORKDIR /expand

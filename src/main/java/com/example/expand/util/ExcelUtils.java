@@ -1,77 +1,96 @@
-//package com.example.expand.util;
-//
-//import cn.afterturn.easypoi.excel.ExcelExportUtil;
-//import cn.afterturn.easypoi.excel.ExcelImportUtil;
-//import cn.afterturn.easypoi.excel.entity.ExportParams;
-//import cn.afterturn.easypoi.excel.entity.ImportParams;
-//import org.apache.poi.ss.usermodel.Workbook;
-//import org.springframework.web.multipart.MultipartFile;
-//
-//import javax.servlet.http.HttpServletResponse;
-//import java.io.IOException;
-//import java.util.List;
-//
-///**
-// * @ClassName ExcelUtils
-// * @Descriptino TODO
-// * @Author myzhen
-// * @Date 2020/6/22 下午5:54
-// * @Version 1.0
-// **/
-//public class ExcelUtils {
-//
-//    /**
-//     *
-//     * @Title: importData
-//     * @Description: 导入excle 数据
-//     * @param file  文件
-//     * @param headerRows  忽略头行数
-//     * @param pojoClass   转换的实体
-//     * @return List<User>  返回的集合
-//     */
-//    public static <T> List<T> importData(MultipartFile file, Integer headerRows,
-//                                         Class<T> pojoClass){
-//        if (file == null) {
-//            return null;
-//        }
-//        ImportParams params = new ImportParams();
-//        params.setHeadRows(headerRows);
-//        List<T> list = null;
-//        try {
-//            list = ExcelImportUtil.importExcel(file.getInputStream(), pojoClass, params);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return list;
-//    }
-//
-//    /**
-//     *
-//     * @Title: exportExcel
-//     * @Description: 导出excel
-//     * @param list  导出的数据
-//     * @param title  文件标题
-//     * @param sheetName  sheet名称
-//     * @param pojoClass  集合的类
-//     * @param fileName   文件名
-//     *
-//     * @param response
-//     * @return void
-//     */
-//    public static void exportExcel(List<?> list, String title, String sheetName, Class<?> pojoClass, String fileName, HttpServletResponse response) {
-//        Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams(title, sheetName), pojoClass, list);
-//        if (workbook != null) {
-//            try {
-//                response.setCharacterEncoding("UTF-8");
+package com.example.expand.util;
+
+import cn.afterturn.easypoi.excel.ExcelExportUtil;
+import cn.afterturn.easypoi.excel.ExcelImportUtil;
+import cn.afterturn.easypoi.excel.entity.ExportParams;
+import cn.afterturn.easypoi.excel.entity.ImportParams;
+import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+
+/**
+ * @ClassName ExcelUtils
+ * @Descriptino TODO
+ * @Author myzhen
+ * @Date 2020/6/22 下午5:54
+ * @Version 1.0
+ **/
+public class ExcelUtils {
+
+    /**
+     *
+     * @Title: importData
+     * @Description: 导入excle 数据
+     * @param file  文件
+     * @param headerRows  忽略头行数
+     * @param pojoClass   转换的实体
+     * @return List<User>  返回的集合
+     */
+    public static <T> List<T> importData(MultipartFile file, Integer headerRows,
+                                         Class<T> pojoClass){
+        if (file == null) {
+            return null;
+        }
+        ImportParams params = new ImportParams();
+        params.setHeadRows(headerRows);
+        List<T> list = null;
+        try {
+            list = ExcelImportUtil.importExcel(file.getInputStream(), pojoClass, params);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    /**
+     *
+     * @Title: exportExcel
+     * @Description: 导出excel
+     * @param list  导出的数据
+     * @param title  文件标题
+     * @param sheetName  sheet名称
+     * @param pojoClass  集合的类
+     * @param fileName   文件名
+     *
+     * @param response
+     * @return void
+     */
+    public static void exportExcel(List<?> list, String title, String sheetName, Class<?> pojoClass, String fileName, HttpServletResponse response) {
+        Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams(title, sheetName), pojoClass, list);
+        if (workbook != null) {
+            try {
+                response.setCharacterEncoding("UTF-8");
+                response.setContentType("application/zip; charset=UTF-8");
 //                response.setHeader("content-Type", "application/vnd.ms-excel");
-//                response.setHeader("Content-Disposition", "attachment;filename=" + new String(fileName.getBytes("UTF-8"), "ISO-8859-1"));
+                response.setHeader("Content-Disposition", "attachment;filename=" + new String(fileName.getBytes("UTF-8"), "ISO-8859-1"));
 //                workbook.write(response.getOutputStream());
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-//
-//}
+
+                ZipOutputStream zipOutputStream = new ZipOutputStream(response.getOutputStream());
+                //多个从这里就可遍历了
+                // --start
+                ZipEntry entry = new ZipEntry("第一个文件名.xls");
+                zipOutputStream.putNextEntry(entry);
+
+                ByteOutputStream byteOutputStream = new ByteOutputStream();
+                workbook.write(byteOutputStream);
+                byteOutputStream.writeTo(zipOutputStream);
+//            zipOutputStream.write(workbook.getBytes());
+                byteOutputStream.close();
+                zipOutputStream.closeEntry();
+                // --end
+                zipOutputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+}

@@ -7,6 +7,7 @@ import cn.hutool.poi.excel.ExcelWriter;
 import com.example.expand.domain.User;
 //import com.example.expand.spi.PhraseDoc;
 //import com.example.expand.util.ExcelUtils;
+import com.example.expand.util.ExcelUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -91,7 +93,13 @@ public class FileController {
 
     @PostMapping("/valid")
     @ApiOperation("ceshi")
-    public String expUser(){
+    public String expUserTest(HttpServletResponse response){
+        List<User> list = new ArrayList<>();
+        User user = new User();
+        user.setName("cecs");
+        user.setCreateTime(new Date());
+        list.add(user);
+        ExcelUtils.exportExcel(list,"ceshi","ceshi",User.class,"fileName",response);
         return "success";
     }
 

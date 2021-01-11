@@ -1,8 +1,10 @@
 package com.example.expand.domain;
 
 //import cn.afterturn.easypoi.excel.annotation.Excel;
+import cn.afterturn.easypoi.excel.annotation.Excel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 //import javax.validation.constraints.NotBlank;
 import java.util.Date;
@@ -18,12 +20,13 @@ import java.util.Date;
  */
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
-//    @Excel(name = "id")
+    @Excel(name = "id")
     private String id;
 //    @NotBlank(message = "名称不能为空")
-//    @Excel(name = "名称")
+    @Excel(name = "名称")
     private String name;
 
     private Date createTime;

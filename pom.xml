@@ -19,6 +19,10 @@
         <cn.hutool>5.4.6</cn.hutool>
         <spring.aop>2.3.4.RELEASE</spring.aop>
         <docker.image.prefix>expand</docker.image.prefix>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <mybatis.mapper.version>2.1.0</mybatis.mapper.version>
+        <mybatis.pagehelper.version>1.2.10</mybatis.pagehelper.version>
     </properties>
 
     <dependencies>
@@ -48,6 +52,16 @@
             <version>4.1.1</version>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-quartz</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper-spring-boot-starter</artifactId>
+            <version>${mybatis.mapper.version}</version>
+        </dependency>
+        <dependency>
         <groupId>org.apache.poi</groupId>
         <artifactId>poi-ooxml-schemas</artifactId>
         <version>3.17</version>
@@ -62,13 +76,24 @@
             <artifactId>hutool-all</artifactId>
             <version>${cn.hutool}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.aliyun/aliyun-java-sdk-rds -->
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-rds</artifactId>
+            <version>2.5.4</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
             <version>${spring.aop}</version>
         </dependency>
 
-
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>${mybatis.pagehelper.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -79,6 +104,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
         </dependency>
     </dependencies>
 

@@ -1,44 +1,49 @@
-//package com.example.expand.controller;
-//
-//import cn.hutool.core.io.IoUtil;
-//import cn.hutool.http.HttpRequest;
-//import cn.hutool.poi.excel.ExcelUtil;
-//import cn.hutool.poi.excel.ExcelWriter;
-//import com.example.expand.domain.User;
-////import com.example.expand.spi.PhraseDoc;
-////import com.example.expand.util.ExcelUtils;
+package com.example.expand.controller;
+
+import cn.hutool.core.io.IoUtil;
+import cn.hutool.http.HttpRequest;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.ExcelWriter;
+import com.example.expand.domain.User;
+//import com.example.expand.spi.PhraseDoc;
 //import com.example.expand.util.ExcelUtils;
-//import io.swagger.annotations.Api;
-//import io.swagger.annotations.ApiOperation;
-//import lombok.extern.slf4j.Slf4j;
-//import org.springframework.validation.annotation.Validated;
-//import org.springframework.web.bind.annotation.*;
-//
-//import javax.servlet.ServletOutputStream;
-//import javax.servlet.http.HttpServletResponse;
-//import java.io.IOException;
-//import java.io.UnsupportedEncodingException;
-//import java.time.LocalDateTime;
-//import java.util.ArrayList;
-//import java.util.Date;
-//import java.util.List;
-//import java.util.ServiceLoader;
-//
-///**
-// * TODO
-// *
-// * @author yz.m
-// * @version v1.0.0
-// * @description:
-// * @date 2020/12/8 14:34
-// * @see com.example.expand.controller
-// */
-//@RestController
-//@Api
-//@RequestMapping("/file")
-//@Slf4j
-//public class FileController {
-//
+//import com.example.expand.util.ExcelUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import static com.example.expand.controller.TestController.test;
+import java.util.ServiceLoader;
+
+/**
+ * TODO
+ *
+ * @author yz.m
+ * @version v1.0.0
+ * @description:
+ * @date 2020/12/8 14:34
+ * @see com.example.expand.controller
+ */
+@RestController
+@Api
+@RequestMapping("/file")
+@Slf4j
+public class FileController {
+
+    public static void main(String[] args) {
+        System.out.println(test);
+    }
+
 //    @GetMapping("/expUser")
 //    @ApiOperation("下载")
 //    public void expUser(HttpServletResponse response){
@@ -102,5 +107,5 @@
 //        ExcelUtils.exportExcel(list,"ceshi","ceshi",User.class,"fileName",response);
 //        return "success";
 //    }
-//
-//}
+
+}

@@ -58,6 +58,8 @@ public class RPCServer {
         }
         @Override
         public void run() {
+            // try(){
+            // } try括号内内容 如果捕获异常 则括号内资源自动关闭
             try(
                     ObjectInputStream deserialize = new ObjectInputStream(socket.getInputStream());
                     ObjectOutputStream serialize = new ObjectOutputStream(socket.getOutputStream())

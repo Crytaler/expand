@@ -40,8 +40,18 @@ import java.util.ServiceLoader;
 @Slf4j
 public class FileController {
 
+//    public static void main(String[] args) {
+//        System.out.println(test);
+//    }
+
     public static void main(String[] args) {
-        System.out.println(test);
+        Integer integer = Integer.valueOf(1);
+        int i = integer.intValue();
+        String s = "zzc";
+        String s2 = new String("zzc");
+        System.out.println(s == s2);
+        String s3 = s2.intern();
+        System.out.println(s == s3);  // true
     }
 
 //    @GetMapping("/expUser")
